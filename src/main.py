@@ -21,7 +21,7 @@ else:
     output_response = tts
 
 # Load the profile.json file
-with open("profile.json") as f:
+with open("/home/pi/embed-les/edge-AI-opdracht/melissa/profile.json") as f:
     profile = json.load(f)
 
 name = profile["name"]

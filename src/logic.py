@@ -5,6 +5,7 @@ from plugins.getDateAndTime import get_current_date, get_current_time
 from plugins.getHackerNews import get_hackernews_info
 from plugins.getWeather import get_weather
 from plugins.notesManager import save_note, get_note, list_notes, update_note, delete_note, search_notes
+#from plugins.gpio import read_temperature, activate_pin, read_pin
 
 
 def logic(messages):
@@ -23,6 +24,9 @@ def logic(messages):
         'update_note': update_note,
         'delete_note': delete_note,
         'search_notes': search_notes
+        # 'read_temperature':read_temperature,
+        # 'activate_pin':activate_pin,
+        # 'read_pin':read_pin
     }
 
     # Define tool schema more explicitly
@@ -188,7 +192,7 @@ def logic(messages):
     }]
 
     # Get initial response
-    response = chat(model='qwen-pi', messages=messages, tools=tools)
+    response = chat(model='qwen-pi', messages=messages, tools=tools, think=False)
 
     # Clean the response content
     if 'content' in response.message and response.message['content']:
@@ -229,7 +233,7 @@ def logic(messages):
         # Add the tool outputs
         messages.extend(tool_outputs)
 
-        final_response = chat('qwen-pi', messages=messages, tools=tools)
+        final_response = chat('qwen-pi', messages=messages, tools=tools, think=False)
 
         # Clean the final response content
         if 'content' in final_response.message and final_response.message['content']:
